@@ -7,7 +7,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-6 text-primary">
-                                    Miembros
+                                    Diezmos
                                 </div>
                                 <div class="col-6 d-flex justify-content-end">
                                     <img src="@/assets/img/img-general/members.png" alt="" width="96">
@@ -27,22 +27,22 @@
                                     <template #body>
                                         <grid-row v-for="(item, i) in pagination.data" :key="`d_${i}`">
                                             <grid-cell class="text-center small">
-                                                {{item.first_name}} {{item.second_name}} {{item.first_surname}} {{item.second_surname}}
+                                                {{item.date}} 
                                             </grid-cell>
                                             <grid-cell class="text-center small">
-                                                {{item.document_type}} {{item.document_number}}
+                                                
                                             </grid-cell>
                                             <grid-cell class="text-center ">
-                                                {{item.phone}}
+                                                
                                             </grid-cell>
                                              <grid-cell class="text-center ">
-                                                {{item.address}}
+                                                
                                             </grid-cell>
                                              <grid-cell class="text-center ">
-                                                {{item.email}}
+                                                
                                             </grid-cell>
                                              <grid-cell class="text-center ">
-                                                27
+                                                
                                             </grid-cell>
                                             <grid-cell class="text-center   ">
                                                 <div class=" ">
@@ -59,12 +59,11 @@
                                   </grid-table>
                               </template>
                               <template #action-button>
-                                <button  class="btn btn-info btn-sm shadow-sm mb-2" type="button" data-toggle="modal" @click="openModal()">
+                                <router-link  class="btn btn-info btn-sm shadow-sm mb-2" type="button"  :to="{name:'tithes.create'}">
                                     Nuevo &nbsp;<i class="fas fa-plus"></i>
-                                </button>
+                                </router-link>
                               </template>
                           </data-grid>
-                           <modal-member ref="modalMembers" v-on:get-members="getMembers"></modal-member>
                         </div>
                     </div>
                 </div>
@@ -78,12 +77,11 @@ import GridTable from "../../components/utilities/DataGrid/GridTable";
 import GridCellHeader from "../../components/utilities/DataGrid/GridCellHeader";
 import GridRow from "../../components/utilities/DataGrid/GridRow";
 import GridCell from "../../components/utilities/DataGrid/GridCell";
-import membersService from "../../services/membersService";
-import modalMember from "./modalMembers";
+import membersService from "../../services/membersService";;
 import Swal from "sweetalert2";
 export default {
   components:{
-     GridCell, GridRow, GridCellHeader, GridTable, DataGrid,modalMember
+     GridCell, GridRow, GridCellHeader, GridTable, DataGrid
   },
   data(){
     return {

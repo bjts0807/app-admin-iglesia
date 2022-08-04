@@ -33,6 +33,18 @@ const routes = [
     component: () => import("../views/members/index.vue"),
     meta : {requiresLogin: true},
   },
+  {
+    path: "/tithes",
+    name: "tithes",
+    component: () => import("../views/tithes/index.vue"),
+    meta : {requiresLogin: true},
+  },
+  {
+    path: "/tithes/create",
+    name: "tithes.create",
+    component: () => import("../views/tithes/create.vue"),
+    meta : {requiresLogin: true},
+  },
   /* {
     path: '/members',
     redirect: '/members/index',
