@@ -42,7 +42,8 @@ import Configurator from "@/examples/Configurator.vue";
 import Navbar from "@/examples/Navbars/Navbar.vue";
 import AppFooter from "@/examples/Footer.vue";
 import { mapMutations, mapState } from "vuex";
-
+import "vue-loading-overlay/dist/vue-loading.css";
+import 'vue-select/dist/vue-select.css';
 export default {
   name: "App",
   components: {

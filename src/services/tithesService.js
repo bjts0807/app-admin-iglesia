@@ -1,5 +1,5 @@
 import Service from "./Service";
-const baseurl = '/api/members';
+const baseurl = '/api/tithes';
 import {isEmpty} from 'lodash';
 export default {
     
@@ -26,12 +26,4 @@ export default {
     delete(id) {
         return Service.delete(`${baseurl}/delete/${id}`);
     },
-    getMemberByName(name) {
-        let url = `${baseurl}/get?by=name&name=${name}`;
-        return Service.get(url);
-    },
-    dataSource(search = ''){
-        let url = `${baseurl}/data-source-member${search}`;
-        return Service.get(url);
-    }
 }

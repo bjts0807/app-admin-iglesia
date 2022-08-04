@@ -5,12 +5,13 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Miembros</h5>
+                <img src="@/assets/img/img-general/members.png" alt="" width="64" class="mx-2">
+                <h5 class="modal-title" id="exampleModalLabel"> Miembros</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa fa-times-circle text-danger"></i></button>
             </div>
             <div class="modal-body">
                 <div>
-                    <div class="card-header bg-light"><i class="fa fa-user fa-fw text-info"></i> Información Básica</div>
+                    <div class="card-header bg-light"><i class="fa fa-address-book fa-fw text-info"></i> Información Básica</div>
                     <div class="card-body">
                         <div class="row">
                             <div class="mb-3 col-lg-4 col-md-6 col-sm-12">
@@ -22,15 +23,15 @@
                             </div>
                             <div class="mb-3 col-lg-4 col-md-6 col-sm-12">
                                 <label  class="form-label">Segundo Nombre</label>
-                                <input type="text" class="form-field" >
+                                <input type="text" class="form-field" v-model="member.second_name">
                             </div>
                             <div class="mb-3 col-lg-4 col-md-6 col-sm-12">
                                 <label  class="form-label">Primer Apellido</label>
-                                <input type="text" class="form-field" >
+                                <input type="text" class="form-field" v-model="member.first_surname">
                             </div>
                             <div class="mb-3 col-lg-4 col-md-6 col-sm-12">
                                 <label  class="form-label">Segundo Apellido</label>
-                                <input type="text" class="form-field" >
+                                <input type="text" class="form-field" v-model="member.second_surname">
                             </div>
                             <div class="mb-3 col-lg-4 col-md-6 col-sm-12">
                                 <label  class="form-label">Tipo Doc <span class="text-danger">(*)</span></label>
@@ -73,28 +74,28 @@
                     </div>
                 </div>
                 <div>
-                    <div class="card-header bg-light"><i class="fa fa-user fa-fw text-info"></i> Datos de Contacto</div>
+                    <div class="card-header bg-light"><i class="fas fa-address-card fa-fw text-info"></i> Datos de Contacto</div>
                     <div class="card-body">
                         <div class="row">
                             <div class="mb-3 col-lg-4 col-md-6 col-sm-12">
                                 <label  class="form-label">Teléfono </label>
-                                <input type="text" class="form-field" >
+                                <input type="text" class="form-field" v-model="member.phone">
                             </div>
                             <div class="mb-3 col-lg-4 col-md-6 col-sm-12">
                                 <label  class="form-label">Dirección</label>
-                                <input type="text" class="form-field" >
+                                <input type="text" class="form-field" v-model="member.address">
                             </div>
                             <div class="mb-3 col-lg-4 col-md-6 col-sm-12">
                                 <label  class="form-label">Email</label>
-                                <input type="email" class="form-field" >
+                                <input type="email" class="form-field" v-model="member.email">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cerrar <i class="fa fa-times-circle fa-fw fa-2x"></i></button>
-                <button type="button" class="btn btn-info btn-sm" @click="guardar();">Guardar <i class="fa fa-save fa-fw"></i></button>
+                <button type="button" class="btn btn-secondary btn-sm" @click="closeModal();">Cerrar <i class="fa fa-times-circle fa-fw fa-2x"></i></button>
+                <button type="button" class="btn btn-info btn-sm" @click="save();">Guardar <i class="fa fa-save fa-fw"></i></button>
             </div>
             </div>
         </div>
@@ -113,6 +114,7 @@
         data(){
             return {
                 member: {
+                    id:"",
                     first_name: "",
                     second_name: "",
                     first_surname: "",
@@ -124,58 +126,55 @@
                     birthday: "",
                     active_member: "",
                     email: "",
-                }
+                },
+                type: "store",
             }
         },
-         validations () {
-                return {
-                    member:{ 
-                        first_name: {required},
-                        document_type: {required},
-                        document_number: {required},
-                        birthday: {required},
-                        active_member: {required},
-                    },
-                }
+        validations () {
+            return {
+                member:{ 
+                    first_name: {required},
+                    document_type: {required},
+                    document_number: {required},
+                    birthday: {required},
+                    active_member: {required},
+                },
+            }
         },
         methods: {
-            abrirModal(){
+            openModal(){
                 this.modalShow();
             },
-            async guardar() {
-                console.log('hola');
+            async save() {
                 try {
-                        
-                        
-                        /* if (!this.v$.$validate()) {
-                            return;
-                        } */
-                         if (!await this.v$.member.$validate()) return;
-                            await membersService.store(this.member);
-                            Swal.fire('Datos Guardados con exito','', 'success');
-                        
-                        
-                        
-                        
-                        
-                        
 
-                       
-                        
-                        //this.LoaderSpinnerHide();
+                    if (!await this.v$.member.$validate()) return;
 
-                        /* Toast.fire({
-                            icon: 'success',
-                            title: 'Datos guardados con exito'
-                        }); */
-                    } catch (error) {
-                        console.log(error);
-                         Swal.fire("Ups!", "ha ocurrido un error al procesar la solicitud", "error");
-                    /* this.LoaderSpinnerHide();
-                        Toast.fire({
-                            icon: 'error',
-                            title: 'Ocurrio un error al procesar la solicitud'
-                        }); */
+                    this.LoaderSpinnerShow();
+
+                    if (this.type === "store") {
+                        await membersService.store(this.member);
+                        this.type = "store";
+                        this.clear();
+                    } else if (this.type === "edit") {
+                        await membersService.update(this.member);
+                        this.clear();
+                        this.type = "store";
+                    }
+                
+                    await this.LoaderSpinnerHide();
+
+                    await Swal.fire('Datos Guardados con exito','', 'success');
+
+                    this.$emit("get-members");
+
+                    this.modalHide();
+
+                } catch (error) {
+                    console.log(error);
+                    this.LoaderSpinnerHide()
+                    Swal.fire("Ups!", "ha ocurrido un error al procesar la solicitud", "error");
+                   
                 }
             },
             modalShow(){
@@ -187,6 +186,48 @@
                 let myModal = document.getElementById('modalMembers');
                 let m = Modal.getInstance(myModal)
                 m.hide();
+            },
+            async clear() {
+                this.member.id = "";
+                this.member.first_name = "";
+                this.member.second_name = "";
+                this.member.first_surname = "";
+                this.member.second_surname = "";
+                this.member.document_type = "";
+                this.member.document_number = "";
+                this.member.email = "";
+                this.member.address = "";
+                this.member.phone = "";
+                this.member.birthday = "";
+                this.member.active_member = "";
+            },
+            closeModal() {
+                this.type = "store";
+                this.clear();
+                this.modalHide();
+            },
+            async edit(id) {
+                
+                this.$nextTick(async () => {
+                    this.LoaderSpinnerShow();
+                    this.type = "edit";
+                    this.modalShow();
+                    const response = await membersService.show(id);
+                    this.member.id = response.data.id;
+                    this.member.first_name = response.data.first_name;
+                    this.member.second_name = response.data.second_name;
+                    this.member.first_surname = response.data.first_surname;
+                    this.member.second_surname = response.data.second_surname;
+                    this.member.document_type = response.data.document_type;
+                    this.member.document_number = response.data.document_number;
+                    this.member.email = response.data.email;
+                    this.member.phone = response.data.phone;
+                    this.member.address = response.data.address;
+                    this.member.birthday = response.data.birthday;
+                    this.member.active_member = response.data.active_member;
+                    this.LoaderSpinnerHide();
+                });
+                
             },
         }
     }

@@ -31,11 +31,10 @@
       </li>
       <li class="nav-item">
         <sidenav-collapse
-          url="#"
+          :to="{name:'tithes'}"
           :aria-controls="''"
           v-bind:collapse="false"
-          collapseRef="billing"
-          navText="Billing"
+          navText="Diezmos"
         >
           <template v-slot:icon>
             <i class="material-icons-round opacity-10 fs-5">receipt_long</i>
