@@ -1,11 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Tables from "../views/Tables.vue";
-import Billing from "../views/Billing.vue";
-import RTL from "../views/Rtl.vue";
-import Notifications from "../views/Notifications.vue";
-import Profile from "../views/Profile.vue";
-import SignIn from "../views/SignIn.vue";
-import SignUp from "../views/SignUp.vue";
 import store from "../store/index";
 
 const routes = [
@@ -20,7 +13,11 @@ const routes = [
     name: "Dashboard",
     component: Dashboard,
   }, */
-  
+  {
+    path: "/signin",
+    name: "signin",
+    component: () => import("../views/SignIn"),
+  },
   {
     path: "/dashboard",
     name: "Dashboard",
@@ -43,6 +40,24 @@ const routes = [
     path: "/tithes/create",
     name: "tithes.create",
     component: () => import("../views/tithes/create.vue"),
+    meta : {requiresLogin: true},
+  },
+  {
+    path: "/offerings",
+    name: "offerings",
+    component: () => import("../views/offerings/index.vue"),
+    meta : {requiresLogin: true},
+  },
+  {
+    path: "/expenses",
+    name: "expenses",
+    component: () => import("../views/expenses/index.vue"),
+    meta : {requiresLogin: true},
+  },
+  {
+    path: "/cash",
+    name: "cash",
+    component: () => import("../views/cash/index.vue"),
     meta : {requiresLogin: true},
   },
   /* {
@@ -68,41 +83,7 @@ const routes = [
         }
     ]
   }, */
-  {
-    path: "/tables",
-    name: "Tables",
-    component: Tables,
-  },
-  {
-    path: "/billing",
-    name: "Billing",
-    component: Billing,
-  },
-  {
-    path: "/rtl-page",
-    name: "RTL",
-    component: RTL,
-  },
-  {
-    path: "/notifications",
-    name: "Notifications",
-    component: Notifications,
-  },
-  {
-    path: "/profile",
-    name: "Profile",
-    component: Profile,
-  },
-  {
-    path: "/signin",
-    name: "SignIn",
-    component: SignIn,
-  },
-  {
-    path: "/sign-up",
-    name: "SignUp",
-    component: SignUp,
-  },
+  
 ];
 
 const router = createRouter({

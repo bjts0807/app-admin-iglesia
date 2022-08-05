@@ -96,7 +96,7 @@
                     <p class="mx-auto mb-4 text-sm">
                       Don't have an account?
                       <router-link
-                        :to="{ name: 'SignIn' }"
+                        :to="{ name: 'signin' }"
                         class="text-success text-gradient font-weight-bold"
                         >Sign In</router-link
                       >

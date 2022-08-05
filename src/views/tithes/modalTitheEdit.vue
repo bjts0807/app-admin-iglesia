@@ -22,6 +22,9 @@
                     <div class="mb-3 col-lg-12 col-md-6 col-sm-12">
                         <label  class="form-label"><i class="fa fa-dollar-sign fa-fw"></i>Valor</label>
                         <input type="text" class="form-field" v-model="tithe.value">
+                        <div v-if="v$.tithe.value.$error" class="text-danger" style="font-size:14px" >
+                            <i class="fa fa-warning fa-fw"></i> Este campo es requerido.
+                        </div>
                     </div>
                 </div>
             </div>

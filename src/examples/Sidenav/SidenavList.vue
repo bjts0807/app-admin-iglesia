@@ -9,7 +9,7 @@
           url="#"
           :aria-controls="''"
           v-bind:collapse="false"
-          collapseRef="dashboard"
+          :to="{name:'Dashboard'}"
           navText="Inicio"
         >
           <template v-slot:icon>
@@ -23,7 +23,6 @@
           :aria-controls="''"
           v-bind:collapse="false"
           navText="Miembros"
-          collapseRef="members"
         >
           <template v-slot:icon>
             <i class="material-icons-round opacity-10 fs-5">group</i>
@@ -36,7 +35,6 @@
           :aria-controls="''"
           v-bind:collapse="false"
           navText="Diezmos"
-          collapseRef="tithes"
 
         >
           <template v-slot:icon>
@@ -46,29 +44,40 @@
       </li>
       <li class="nav-item">
         <sidenav-collapse
-          url="#"
+          :to="{name:'offerings'}"
           :aria-controls="''"
           v-bind:collapse="false"
-          collapseRef="rtl-page"
-          navText="Rtl"
+          navText="Ofrendas"
+
         >
           <template v-slot:icon>
-            <i class="material-icons-round opacity-10 fs-5"
-              >format_textdirection_r_to_l</i
-            >
+            <i class="material-icons-round opacity-10 fs-5">paid</i>
           </template>
         </sidenav-collapse>
       </li>
       <li class="nav-item">
         <sidenav-collapse
-          url="#"
+          :to="{name:'expenses'}"
           :aria-controls="''"
           v-bind:collapse="false"
-          collapseRef="notifications"
-          navText="Notifications"
+          navText="Salidas"
+
         >
           <template v-slot:icon>
-            <i class="material-icons-round opacity-10 fs-5">notifications</i>
+            <i class="material-icons-round opacity-10 fs-5">price_check</i>
+          </template>
+        </sidenav-collapse>
+      </li>
+      <li class="nav-item">
+        <sidenav-collapse
+          :to="{name:'cash'}"
+          :aria-controls="''"
+          v-bind:collapse="false"
+          navText="Caja"
+
+        >
+          <template v-slot:icon>
+            <i class="material-icons-round opacity-10 fs-5">point_of_sale</i>
           </template>
         </sidenav-collapse>
       </li>
@@ -125,7 +134,7 @@
         <a
           class="btn mt-4 w-100"
           :class="`bg-gradient-${this.$store.state.color}`"
-          href="https://www.creative-tim.com/product/vue-material-dashboard-2-pro"
+          @click="logout()"
           >Salir <i class="fa fa-sign-out"></i> </a
         >
       </div>
@@ -134,11 +143,27 @@
 </template>
 <script>
 import SidenavCollapse from "./SidenavCollapse.vue";
-
+import {useStore} from 'vuex';
 export default {
   name: "SidenavList",
   props: {
     cardBg: String
+  },
+  setup (){
+    const store = useStore();
+    const logout = async () => {
+      try{
+        
+        await store.dispatch('logout')
+        
+      }catch (e) {
+        console.error(e);
+      }
+    }
+
+    return {
+      logout
+    }
   },
   data() {
     return {
