@@ -30,19 +30,10 @@
                                                 {{item.date}} 
                                             </grid-cell>
                                             <grid-cell class="text-center small">
-                                                
+                                                {{item.member.first_name}} {{item.member.second_name}} {{item.member.first_surname}} {{item.member.second_surname}}
                                             </grid-cell>
                                             <grid-cell class="text-center ">
-                                                
-                                            </grid-cell>
-                                             <grid-cell class="text-center ">
-                                                
-                                            </grid-cell>
-                                             <grid-cell class="text-center ">
-                                                
-                                            </grid-cell>
-                                             <grid-cell class="text-center ">
-                                                
+                                                {{$filters.cop_currency_no_decimals(item.value)}}
                                             </grid-cell>
                                             <grid-cell class="text-center   ">
                                                 <div class=" ">
@@ -64,6 +55,7 @@
                                 </router-link>
                               </template>
                           </data-grid>
+                           <modal-tithe-edit ref="modalTitheEdit" v-on:get-tithes="getTithes"></modal-tithe-edit>
                         </div>
                     </div>
                 </div>
@@ -77,21 +69,19 @@ import GridTable from "../../components/utilities/DataGrid/GridTable";
 import GridCellHeader from "../../components/utilities/DataGrid/GridCellHeader";
 import GridRow from "../../components/utilities/DataGrid/GridRow";
 import GridCell from "../../components/utilities/DataGrid/GridCell";
-import membersService from "../../services/membersService";;
+import tithesService from "../../services/tithesService";;
 import Swal from "sweetalert2";
+import modalTitheEdit from "./modalTitheEdit";
 export default {
   components:{
-     GridCell, GridRow, GridCellHeader, GridTable, DataGrid
+     GridCell, GridRow, GridCellHeader, GridTable, DataGrid,modalTitheEdit
   },
   data(){
     return {
         headers : [
-            'Nombre',
-            'Documento',
-            'Teléfono',
-            'Dirección',
-            'Email',
-            'Edad',
+            'Fecha',
+            'Miembro',
+            'Valor',
             'Opciones'
         ],
         pagination : {
@@ -105,10 +95,10 @@ export default {
     }
   },
   methods:{
-    async getMembers(){
+    async getTithes(){
         try {
             this.LoaderSpinnerShow();
-            const response = (await membersService.index(this.pagination.search, this.pagination))?.data;
+            const response = (await tithesService.index(this.pagination.search, this.pagination))?.data;
             console.log(response.data);
             this.pagination.data = response.data;
             this.pagination.current_page  = response.current_page;
@@ -126,27 +116,24 @@ export default {
     },
     changePage(page) {
       this.pagination.page = page;
-      this.getMembers();
+      this.getTithes();
     },
     perPageChange(per_page) {
       this.pagination.per_page = per_page;
       this.pagination.page = 1;
-      this.getMembers();
+      this.getTithes();
     },
     search(query){
       this.pagination.search = query;
       this.pagination.page = 1;
-      this.getMembers();
-    },
-    openModal(){
-      this.$refs.modalMembers.openModal();
+      this.getTithes();
     },
     openModalEdit(id){
-        this.$refs.modalMembers.edit(id);
+        this.$refs.modalTitheEdit.edit(id);
     },
   },
   async created(){
-    await this.getMembers();
+    await this.getTithes();
   }
 }
 </script>

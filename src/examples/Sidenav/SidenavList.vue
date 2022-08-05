@@ -10,7 +10,7 @@
           :aria-controls="''"
           v-bind:collapse="false"
           collapseRef="dashboard"
-          navText="Dashboard"
+          navText="Inicio"
         >
           <template v-slot:icon>
             <i class="material-icons-round opacity-10 fs-5">dashboard</i>
@@ -23,9 +23,10 @@
           :aria-controls="''"
           v-bind:collapse="false"
           navText="Miembros"
+          collapseRef="members"
         >
           <template v-slot:icon>
-            <i class="material-icons-round opacity-10 fs-5">table_view</i>
+            <i class="material-icons-round opacity-10 fs-5">group</i>
           </template>
         </sidenav-collapse>
       </li>
@@ -35,9 +36,11 @@
           :aria-controls="''"
           v-bind:collapse="false"
           navText="Diezmos"
+          collapseRef="tithes"
+
         >
           <template v-slot:icon>
-            <i class="material-icons-round opacity-10 fs-5">receipt_long</i>
+            <i class="material-icons-round opacity-10 fs-5">payments</i>
           </template>
         </sidenav-collapse>
       </li>
@@ -69,7 +72,7 @@
           </template>
         </sidenav-collapse>
       </li>
-      <li class="mt-3 nav-item">
+      <!-- <li class="mt-3 nav-item">
         <h6
           class="text-xs ps-4 text-uppercase font-weight-bolder text-white"
           :class="this.$store.state.isRTL ? 'me-4' : 'ms-2'"
@@ -115,7 +118,7 @@
             <i class="material-icons-round opacity-10 fs-5">assignment</i>
           </template>
         </sidenav-collapse>
-      </li>
+      </li> -->
     </ul>
     <div class="sidenav-footer position-absolute w-100 bottom-0">
       <div class="mx-3">
@@ -123,7 +126,7 @@
           class="btn mt-4 w-100"
           :class="`bg-gradient-${this.$store.state.color}`"
           href="https://www.creative-tim.com/product/vue-material-dashboard-2-pro"
-          >Upgrade to pro</a
+          >Salir <i class="fa fa-sign-out"></i> </a
         >
       </div>
     </div>
@@ -139,7 +142,7 @@ export default {
   },
   data() {
     return {
-      title: "Soft UI Dashboard PRO",
+      title: "Dios con Nosotros",
       controls: "dashboardsExamples",
       isActive: "active"
     };
