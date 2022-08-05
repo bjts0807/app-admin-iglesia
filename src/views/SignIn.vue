@@ -1,5 +1,5 @@
 <template>
-  <main>
+ 
     <navbar btnBackground="bg-gradient-success" />
   <div
     class="page-header align-items-start min-vh-100"
@@ -113,7 +113,7 @@
       </div>
     </footer>
   </div>
-  </main>
+
 </template>
 
 <script>

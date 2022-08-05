@@ -85,6 +85,9 @@ export default createStore({
       await logout();
       commit('SET_LOGIN_USER', null);
       commit('isLogged', false);
+      router.push({
+        name : 'signin'
+      })
     },
     async currentUser({ commit }) {
       try {
