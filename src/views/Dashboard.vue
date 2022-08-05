@@ -5,12 +5,12 @@
         <div class="row">
           <div class="col-lg-3 col-md-6 col-sm-6">
             <mini-statistics-card
-              :title="{ text: 'Today\'s Money', value: '$53k' }"
+              :title="{ text: 'Miembros ', value: '10' }"
               detail="<span class='text-success text-sm font-weight-bolder'>+55%</span> than last week"
               :icon="{
-                name: 'weekend',
+                name: 'group',
                 color: 'text-white',
-                background: 'dark',
+                background: 'info',
               }"
             />
           </div>

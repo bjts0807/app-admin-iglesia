@@ -1,9 +1,11 @@
 <template>
-  <navbar btnBackground="bg-gradient-success" />
+  <main>
+    <navbar btnBackground="bg-gradient-success" />
   <div
     class="page-header align-items-start min-vh-100"
     style="
-      background-image: url('https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80');
+      background: rgb(15,118,255);
+      background: linear-gradient(90deg, rgba(15,118,255,1) 0%, rgba(39,127,244,1) 35%, rgba(68,145,240,1) 100%);
     "
   >
     <span class="mask bg-gradient-dark opacity-6"></span>
@@ -19,20 +21,8 @@
                   Iniciar sesión
                 </h4>
                 <div class="row mt-3">
-                  <div class="col-2 text-center ms-auto">
-                    <a class="btn btn-link px-3" href="javascript:;">
-                      <i class="fab fa-facebook text-white text-lg"></i>
-                    </a>
-                  </div>
-                  <div class="col-2 text-center px-1">
-                    <a class="btn btn-link px-3" href="javascript:;">
-                      <i class="fab fa-github text-white text-lg"></i>
-                    </a>
-                  </div>
-                  <div class="col-2 text-center me-auto">
-                    <a class="btn btn-link px-3" href="javascript:;">
-                      <i class="fab fa-google text-white text-lg"></i>
-                    </a>
+                  <div class="col-12 text-center ms-auto">
+                   <img src="@/assets/img/img-general/login.png" alt="" width="100">
                   </div>
                 </div>
               </div>
@@ -40,40 +30,49 @@
             <div class="card-body">
               <form role="form" class="text-start mt-3">
                 <div class="form-group" v-if="has_error">
-                  <div class="alert alert-danger d-flex align-items-center" role="alert">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <div v-text="message">                         
-                    </div>
+                  <div class="alert alert-danger alert-dismissible fade show w-100 d-block" role="alert">
+                    <i class="fas fa-exclamation-triangle fa-fw"></i>
+                    <div v-text="message"></div>
                   </div>
                 </div>
-                 <div class="mb-3 form-group">
-                     
+
+                <div class="mb-3 form-group">  
                   <input class="form-field" type="text" v-model="form.email"/>
                 </div>
-                    <div class="mb-3 form-group">
-                     
-                    <input class="form-field" type="password" v-model="form.password"/>
-                    </div>
-                <material-switch id="rememberMe" name="rememberMe"
-                  >Remember me</material-switch
-                >
+                <!-- <div v-if="!$v.form.email.required" class="invalid-feedback">
+                  Por favor ingrese su e-mail
+                </div> -->
+                <div v-if="v$.form.email.$error" class="text-danger" style="font-size:14px" >
+                  <i class="fa fa-warning fa-fw"></i> Por favor ingrese su e-mail.
+                </div>
                 
+                
+                <div class="mb-3 form-group">
+                  <input class="form-field" type="password" v-model="form.password"/>
+                </div>
+                 <div v-if="v$.form.password.$error" class="text-danger" style="font-size:14px" >
+                  <i class="fa fa-warning fa-fw"></i> Por favor ingrese su contraseña.
+                </div>
+                <!-- <material-switch id="rememberMe" name="rememberMe"
+                  >Remember me</material-switch
+                > -->
                 <div class="text-center">
                   <button class="mt-4 btn btn-info"
-                        variant="gradient"
-                        color="success"
-                        fullWidth
-                        size="lg"
-                        @click.prevent="login()">Acceder</button>
+                    variant="gradient"
+                    color="success"
+                    fullWidth
+                    size="lg"
+                    @click.prevent="login()">Acceder <i class="fa fa-sign-in fa-fw"></i>
+                  </button>
                 </div>
-                <p class="mt-4 text-sm text-center">
+                <!-- <p class="mt-4 text-sm text-center">
                   Don't have an account?
                   <router-link
                     :to="{ name: 'SignUp' }"
                     class="text-success text-gradient font-weight-bold"
                     >Sign up</router-link
                   >
-                </p>
+                </p> -->
               </form>
             </div>
           </div>
@@ -85,15 +84,14 @@
         <div class="row align-items-center justify-content-lg-between">
           <div class="col-12 col-md-6 my-auto">
             <div class="copyright text-center text-sm text-white text-lg-start">
-              © {{ new Date().getFullYear() }}, made with
+              © {{ new Date().getFullYear() }}, powered
               <i class="fa fa-heart" aria-hidden="true"></i> by
               <a
-                href="https://www.creative-tim.com"
+                href=""
                 class="font-weight-bold text-white"
                 target="_blank"
-                >Creative Tim</a
+                >Brayan Torres</a
               >
-              for a better web.
             </div>
           </div>
           <div class="col-12 col-md-6">
@@ -102,56 +100,31 @@
             >
               <li class="nav-item">
                 <a
-                  href="https://www.creative-tim.com"
+                  href=""
                   class="nav-link text-white"
                   target="_blank"
-                  >Creative Tim</a
+                  >Iglesia Dios con Nosotros v 1.0</a
                 >
               </li>
-              <li class="nav-item">
-                <a
-                  href="https://www.creative-tim.com/presentation"
-                  class="nav-link text-white"
-                  target="_blank"
-                  >About Us</a
-                >
-              </li>
-              <li class="nav-item">
-                <a
-                  href="https://www.creative-tim.com/blog"
-                  class="nav-link text-white"
-                  target="_blank"
-                  >Blog</a
-                >
-              </li>
-              <li class="nav-item">
-                <a
-                  href="https://www.creative-tim.com/license"
-                  class="nav-link pe-0 text-white"
-                  target="_blank"
-                  >License</a
-                >
-              </li>
+              
             </ul>
           </div>
         </div>
       </div>
     </footer>
   </div>
+  </main>
 </template>
 
 <script>
 //import Navbar from "@/examples/PageLayout/Navbar.vue";
-import MaterialSwitch from "@/components/MaterialSwitch.vue";
+//import MaterialSwitch from "@/components/MaterialSwitch.vue";
 import { mapMutations } from "vuex";
-import { required, email } from 'vuelidate/lib/validators';
-
+import useVuelidate from '@vuelidate/core'
+import { required ,email} from '@vuelidate/validators';
 export default {
   name: "signin",
-  components: {
-    //Navbar,
-    MaterialSwitch,
-  },
+   setup: () => ({ v$: useVuelidate() }),
   data (){
     return {
       form: {
@@ -170,23 +143,35 @@ export default {
     this.toggleEveryDisplay();
     this.toggleHideConfig();
   },
-  validations:{
+  validations(){
+    return {
       form: {
           email: { required, email },
           password: { required },
       }
+    }
   },
   methods: {
     ...mapMutations(["toggleEveryDisplay", "toggleHideConfig"]),
     async login() {
-        try{   
+        try{
+
+          if (!await this.v$.form.$validate()) return;
+
+          this.LoaderSpinnerShow();
+
           await this.$store.dispatch("login", this.form);
+          this.LoaderSpinnerHide();
         }catch(error){
-            //this.LoaderSpinnerHide();
+            this.LoaderSpinnerHide();
             switch(error.response.status){
                 case 422:
                     this.has_error = true;
                     this.message = "Usuario o contraseña incorrectos";
+                    break;
+                 case 401:
+                        this.has_error = true;
+                        this.message = "Usuario o contraseña incorrectos";
                 break;
                 default :
                     this.has_error = true;
