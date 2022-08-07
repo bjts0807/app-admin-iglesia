@@ -3,16 +3,12 @@ import store from "../store/index";
 
 const routes = [
 
-  /* {
+  {
     path: "/",
     name: "/",
-    redirect: "/dashboard",
+    redirect: "/signin",
+    component: () => import("../views/SignIn")
   },
-  {
-    path: "/dashboard",
-    name: "Dashboard",
-    component: Dashboard,
-  }, */
   {
     path: "/signin",
     name: "signin",

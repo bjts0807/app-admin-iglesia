@@ -42,7 +42,7 @@
                                                 {{item.email}}
                                             </grid-cell>
                                              <grid-cell class="text-center ">
-                                                27
+                                                {{yearMember(item.birthday)}}
                                             </grid-cell>
                                             <grid-cell class="text-center   ">
                                                 <div class=" ">
@@ -81,6 +81,9 @@ import GridCell from "../../components/utilities/DataGrid/GridCell";
 import membersService from "../../services/membersService";
 import modalMember from "./modalMembers";
 import Swal from "sweetalert2";
+import {isEmpty} from "lodash";
+import dayjs from 'dayjs';
+
 export default {
   components:{
      GridCell, GridRow, GridCellHeader, GridTable, DataGrid,modalMember
@@ -93,7 +96,7 @@ export default {
             'Teléfono',
             'Dirección',
             'Email',
-            'Edad',
+            'Edad (Años)',
             'Opciones'
         ],
         pagination : {
@@ -145,6 +148,10 @@ export default {
     },
     openModalEdit(id){
         this.$refs.modalMembers.edit(id);
+    },
+    yearMember(date){
+        if(isEmpty(date)) return 0;
+        return dayjs().diff(date,'year');
     },
   },
   async created(){

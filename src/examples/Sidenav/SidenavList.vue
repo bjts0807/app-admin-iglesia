@@ -144,6 +144,7 @@
 <script>
 import SidenavCollapse from "./SidenavCollapse.vue";
 import {useStore} from 'vuex';
+import Swal from "sweetalert2";
 export default {
   name: "SidenavList",
   props: {
@@ -153,8 +154,31 @@ export default {
     const store = useStore();
     const logout = async () => {
       try{
+        const result = await Swal.fire({
+          title :  "¿Está seguro de finalizar la Sesión ?",
+          text : "",
+          showCancelButton : true,
+          showConfirmButton : true,
+          confirmButtonText : 'Sí, finalizar',
+          cancelButtonText : 'No',
+          icon : "warning",
+          showLoaderOnConfirm : true,
+          preConfirm: async () => {
+            try{
+             await store.dispatch('logout')
+            }catch (e) {
+              console.error(e);
+              Swal.showValidationMessage('ha ocurrido un error al procesar la solicitud');
+            }
+
+          },
+        });
+
+        if(result.isConfirmed){
+          Swal.fire('Exíto', 'Sesión finalizada con exíto', 'success');
+          
+        }
         
-        await store.dispatch('logout')
         
       }catch (e) {
         console.error(e);
