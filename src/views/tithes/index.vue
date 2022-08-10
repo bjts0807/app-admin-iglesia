@@ -10,7 +10,7 @@
                                     Diezmos
                                 </div>
                                 <div class="col-6 d-flex justify-content-end">
-                                    <img src="@/assets/img/img-general/members.png" alt="" width="96">
+                                    <i class="material-icons-round text-dark fs-2">payments</i>
                                 </div>
                             </div>
                         </div>
@@ -40,9 +40,9 @@
                                                 <button @click="openModalEdit(item.id);" class="btn btn-outline-info mx-2  btn-sm" title="Editar" >
                                                     <i class="fa fa-edit fa-3x"></i>
                                                 </button>
-                                                <button @click="deleteMember(item.id);" class="btn btn-outline-danger  btn-sm" title="Eliminar">
+                                                <!-- <button @click="deleteMember(item.id);" class="btn btn-outline-danger  btn-sm" title="Eliminar">
                                                     <i class="fa fa-trash-alt"></i>
-                                                </button>
+                                                </button> -->
                                             </div>
                                             </grid-cell>
                                         </grid-row>
@@ -51,7 +51,7 @@
                               </template>
                               <template #action-button>
                                 <router-link  class="btn btn-info btn-sm shadow-sm mb-2" type="button"  :to="{name:'tithes.create'}">
-                                    Nuevo &nbsp;<i class="fas fa-plus"></i>
+                                    Nuevo <i class="fas fa-plus fa-fw"></i>
                                 </router-link>
                               </template>
                           </data-grid>
@@ -107,7 +107,7 @@ export default {
         }catch (e) {
             console.error(e);
             this.LoaderSpinnerHide(); 
-            Swal.fire("Ups!", "ha ocurrido un error al procesar la solicitud", "error");
+            Swal.fire("Oops!", "ha ocurrido un error al procesar la solicitud", "error");
             /* Toast.fire({
                 icon: 'error',
                 title: 'Ocurrio un error al procesar la solicitud'

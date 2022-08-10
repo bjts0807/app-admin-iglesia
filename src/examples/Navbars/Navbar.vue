@@ -69,7 +69,7 @@
               aria-expanded="false"
               @click="showMenu = !showMenu"
             >
-              <i class="material-icons cursor-pointer"> account_circle </i>
+              <i class="material-icons cursor-pointer text-info fs-3"> account_circle </i>
             </a>
             <ul
               class="px-2 py-3 dropdown-menu dropdown-menu-end me-sm-n4"
@@ -80,19 +80,15 @@
                 <a class="dropdown-item border-radius-md" href="javascript:;">
                   <div class="py-1 d-flex">
                     <div class="my-auto">
-                      <img
-                        src="../../assets/img/team-2.jpg"
-                        class="avatar avatar-sm me-3"
-                        alt="user image"
-                      />
+                      <i class="fa fa-user-circle avatar avatar-sm bg-gradient-dark me-3 text-white"></i> 
                     </div>
                     <div class="d-flex flex-column justify-content-center">
                       <h6 class="mb-1 text-sm font-weight-normal">
-                        <span class="font-weight-bold">user</span> 
+                        <span class="font-weight-bold" v-if="this.$store.state.user">{{this.$store.state.user.name}}</span> 
                       </h6>
-                      <p class="mb-0 text-xs text-secondary">
-                        <i class="fa fa-clock me-1"></i>
-                        email
+                      <p class="mb-0 text-xs text-secondary" v-if="this.$store.state.user">
+                        <i class="fas fa-envelope me-1 text-info"></i>
+                        {{this.$store.state.user.email}}
                       </p>
                     </div>
                   </div>
@@ -102,11 +98,7 @@
                 <a class="dropdown-item border-radius-md" href="javascript:;">
                   <div class="py-1 d-flex">
                     <div class="my-auto">
-                      <img
-                        src="../../assets/img/small-logos/logo-spotify.svg"
-                        class="avatar avatar-sm bg-gradient-dark me-3"
-                        alt="logo spotify"
-                      />
+                      <i class="fa fa-user avatar avatar-sm bg-gradient-dark me-3 text-white"></i> 
                     </div>
                     <div class="d-flex flex-column justify-content-center">
                       <h6 class="mb-1 text-sm font-weight-normal">
@@ -117,18 +109,15 @@
                 </a>
               </li>
               <li class="mb-2">
-                <a class="dropdown-item border-radius-md" href="javascript:;">
+                <a class="dropdown-item border-radius-md" @click="logout()">
                   <div class="py-1 d-flex">
                     <div class="my-auto">
-                      <img
-                        src="../../assets/img/small-logos/logo-spotify.svg"
-                        class="avatar avatar-sm bg-gradient-dark me-3"
-                        alt="logo spotify"
-                      />
+                      <i class="fa fa-sign-out avatar avatar-sm bg-gradient-dark me-3 text-white"></i> 
+                     
                     </div>
                     <div class="d-flex flex-column justify-content-center">
                       <h6 class="mb-1 text-sm font-weight-normal">
-                        <span class="font-weight-bold">Cerrar Sesión</span> 
+                        Salir 
                       </h6>
                     </div>
                   </div>
@@ -145,9 +134,51 @@
 
 import Breadcrumbs from "../Breadcrumbs.vue";
 import { mapMutations, mapState } from "vuex";
+import {useStore} from 'vuex';
+import Swal from "sweetalert2";
 
 export default {
   name: "navbar",
+   setup (){
+    const store = useStore();
+    const logout = async () => {
+      try{
+        const result = await Swal.fire({
+          title :  "¿Está seguro de finalizar la Sesión ?",
+          text : "",
+          showCancelButton : true,
+          showConfirmButton : true,
+          confirmButtonColor: "#1a73e8",
+          confirmButtonText : 'Sí, finalizar',
+          cancelButtonText : 'No',
+          icon : "warning",
+          showLoaderOnConfirm : true,
+          preConfirm: async () => {
+            try{
+             await store.dispatch('logout')
+            }catch (e) {
+              console.error(e);
+              Swal.showValidationMessage('ha ocurrido un error al procesar la solicitud');
+            }
+
+          },
+        });
+
+        if(result.isConfirmed){
+          Swal.fire('Exíto', 'Sesión finalizada con exíto', 'success');
+          
+        }
+        
+        
+      }catch (e) {
+        console.error(e);
+      }
+    }
+
+    return {
+      logout
+    }
+  },
   data() {
     return {
       showMenu: false,
@@ -168,7 +199,7 @@ export default {
     Breadcrumbs,
   },
   computed: {
-    ...mapState(["isRTL", "isAbsolute", 'user']),
+    ...mapState(["isRTL", "isAbsolute","is_logged", 'user']),
 
     currentRouteName() {
       return this.$route.name;

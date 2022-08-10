@@ -2,8 +2,8 @@ import Service from "./Service";
 const baseurl = '/api/dashboard';
 export default {
     
-    getCash() {
-        return Service.get(`${baseurl}/getCash`);
+    getValueCash() {
+        return Service.get(`${baseurl}/getValueCash`);
     },
     
     dashboardCount(){

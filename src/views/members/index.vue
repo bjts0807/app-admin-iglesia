@@ -10,7 +10,7 @@
                                     Miembros
                                 </div>
                                 <div class="col-6 d-flex justify-content-end">
-                                    <img src="@/assets/img/img-general/members.png" alt="" width="96">
+                                   <i class="material-icons-round text-dark fs-2">group</i>
                                 </div>
                             </div>
                         </div>
@@ -49,9 +49,9 @@
                                                 <button @click="openModalEdit(item.id);" class="btn btn-outline-info mx-2  btn-sm" title="Editar" >
                                                     <i class="fa fa-edit fa-3x"></i>
                                                 </button>
-                                                <button @click="deleteMember(item.id);" class="btn btn-outline-danger  btn-sm" title="Eliminar">
+                                                <!-- <button @click="deleteMember(item.id);" class="btn btn-outline-danger  btn-sm" title="Eliminar">
                                                     <i class="fa fa-trash-alt"></i>
-                                                </button>
+                                                </button> -->
                                             </div>
                                             </grid-cell>
                                         </grid-row>
@@ -122,7 +122,7 @@ export default {
         }catch (e) {
             console.error(e);
             this.LoaderSpinnerHide(); 
-            Swal.fire("Ups!", "ha ocurrido un error al procesar la solicitud", "error");
+            Swal.fire("Oops!", "ha ocurrido un error al procesar la solicitud", "error");
             /* Toast.fire({
                 icon: 'error',
                 title: 'Ocurrio un error al procesar la solicitud'

@@ -5,7 +5,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
             <div class="modal-header">
-                <img src="@/assets/img/img-general/members.png" alt="" width="64" class="mx-2">
+                 <i class="material-icons-round text-dark fs-3 mx-2">paid</i>
                 <h5 class="modal-title" id="exampleModalLabel"> Ofrendas</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa fa-times-circle text-danger"></i></button>
             </div>
@@ -76,7 +76,10 @@
                 try {
 
                     if (!await this.v$.offering.$validate()) return;
-
+                    if(this.offering.value<=0){
+                        Swal.fire("Oops!", "El valor ingresado es incorrecto", "error");
+                        return;
+                    }
                     this.LoaderSpinnerShow();
 
                     if (this.type === "store") {
@@ -100,7 +103,7 @@
                 } catch (error) {
                     console.log(error);
                     this.LoaderSpinnerHide()
-                    Swal.fire("Ups!", "ha ocurrido un error al procesar la solicitud", "error");
+                    Swal.fire("Oops!", "ha ocurrido un error al procesar la solicitud", "error");
                    
                 }
             },

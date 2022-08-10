@@ -94,7 +94,7 @@ export default {
         } catch (error) {
             console.log(error);
             this.LoaderSpinnerHide();
-            Swal.fire("Ups!", "ha ocurrido un error al procesar la solicitud", "error");
+            Swal.fire("Oops!", "ha ocurrido un error al procesar la solicitud", "error");
         }
     }
   },

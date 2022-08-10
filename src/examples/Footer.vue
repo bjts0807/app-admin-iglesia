@@ -11,7 +11,7 @@
             {{ new Date().getFullYear() }}, powered
             <i class="fa fa-heart"></i> by
             <a
-              href=""
+              href="https://www.linkedin.com/in/brayan-torres-salcedo-735106223/"
               class="font-weight-bold"
               target="_blank"
               >Brayan Torres</a
@@ -24,7 +24,7 @@
           >
             <li class="nav-item">
               <a
-                href=""
+                href="#"
                 class="nav-link text-muted"
                 target="_blank"
                 >Iglesia Dios con Nosotros v 1.0</a

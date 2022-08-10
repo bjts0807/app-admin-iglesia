@@ -87,7 +87,7 @@
               © {{ new Date().getFullYear() }}, powered
               <i class="fa fa-heart" aria-hidden="true"></i> by
               <a
-                href=""
+                href="https://www.linkedin.com/in/brayan-torres-salcedo-735106223/"
                 class="font-weight-bold text-white"
                 target="_blank"
                 >Brayan Torres</a

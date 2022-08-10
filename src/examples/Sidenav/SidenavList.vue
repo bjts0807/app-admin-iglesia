@@ -159,6 +159,7 @@ export default {
           text : "",
           showCancelButton : true,
           showConfirmButton : true,
+          confirmButtonColor: "#1a73e8",
           confirmButtonText : 'Sí, finalizar',
           cancelButtonText : 'No',
           icon : "warning",
