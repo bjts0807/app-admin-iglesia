@@ -10,7 +10,7 @@
                                     Miembros
                                 </div>
                                 <div class="col-6 d-flex justify-content-end">
-                                    <img src="@/assets/img/img-general/members.png" alt="" width="96">
+                                   <i class="material-icons-round text-dark fs-2">group</i>
                                 </div>
                             </div>
                         </div>
@@ -42,16 +42,16 @@
                                                 {{item.email}}
                                             </grid-cell>
                                              <grid-cell class="text-center ">
-                                                27
+                                                {{yearMember(item.birthday)}}
                                             </grid-cell>
                                             <grid-cell class="text-center   ">
                                                 <div class=" ">
                                                 <button @click="openModalEdit(item.id);" class="btn btn-outline-info mx-2  btn-sm" title="Editar" >
                                                     <i class="fa fa-edit fa-3x"></i>
                                                 </button>
-                                                <button @click="deleteMember(item.id);" class="btn btn-outline-danger  btn-sm" title="Eliminar">
+                                                <!-- <button @click="deleteMember(item.id);" class="btn btn-outline-danger  btn-sm" title="Eliminar">
                                                     <i class="fa fa-trash-alt"></i>
-                                                </button>
+                                                </button> -->
                                             </div>
                                             </grid-cell>
                                         </grid-row>
@@ -81,6 +81,9 @@ import GridCell from "../../components/utilities/DataGrid/GridCell";
 import membersService from "../../services/membersService";
 import modalMember from "./modalMembers";
 import Swal from "sweetalert2";
+import {isEmpty} from "lodash";
+import dayjs from 'dayjs';
+
 export default {
   components:{
      GridCell, GridRow, GridCellHeader, GridTable, DataGrid,modalMember
@@ -93,7 +96,7 @@ export default {
             'Teléfono',
             'Dirección',
             'Email',
-            'Edad',
+            'Edad (Años)',
             'Opciones'
         ],
         pagination : {
@@ -119,7 +122,7 @@ export default {
         }catch (e) {
             console.error(e);
             this.LoaderSpinnerHide(); 
-            Swal.fire("Ups!", "ha ocurrido un error al procesar la solicitud", "error");
+            Swal.fire("Oops!", "ha ocurrido un error al procesar la solicitud", "error");
             /* Toast.fire({
                 icon: 'error',
                 title: 'Ocurrio un error al procesar la solicitud'
@@ -145,6 +148,10 @@ export default {
     },
     openModalEdit(id){
         this.$refs.modalMembers.edit(id);
+    },
+    yearMember(date){
+        if(isEmpty(date)) return 0;
+        return dayjs().diff(date,'year');
     },
   },
   async created(){

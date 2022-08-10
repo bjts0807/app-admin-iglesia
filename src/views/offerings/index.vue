@@ -10,7 +10,7 @@
                                     Ofrendas
                                 </div>
                                 <div class="col-6 d-flex justify-content-end">
-                                    <img src="@/assets/img/img-general/members.png" alt="" width="96">
+                                    <i class="material-icons-round text-dark fs-2">paid</i>
                                 </div>
                             </div>
                         </div>
@@ -103,7 +103,7 @@ export default {
         }catch (e) {
             console.error(e);
             this.LoaderSpinnerHide(); 
-            Swal.fire("Ups!", "ha ocurrido un error al procesar la solicitud", "error");
+            Swal.fire("Oops!", "ha ocurrido un error al procesar la solicitud", "error");
         }
     },
     changePage(page) {

@@ -5,7 +5,7 @@
         <div class="modal-dialog ">
             <div class="modal-content">
             <div class="modal-header">
-                <img src="@/assets/img/img-general/members.png" alt="" width="64" class="mx-2">
+                <i class="material-icons-round text-dark fs-3 mx-2">payments</i>
                 <h5 class="modal-title" id="exampleModalLabel"> Diezmo</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="fa fa-times-circle text-danger"></i></button>
             </div>
@@ -89,7 +89,7 @@
                 } catch (error) {
                     console.log(error);
                     this.LoaderSpinnerHide()
-                    Swal.fire("Ups!", "ha ocurrido un error al procesar la solicitud", "error");
+                    Swal.fire("Oops!", "ha ocurrido un error al procesar la solicitud", "error");
                    
                 }
             },

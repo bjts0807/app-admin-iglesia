@@ -9,7 +9,7 @@
                                 Diezmos
                             </div>
                             <div class="col-6 d-flex justify-content-end">
-                                <img src="@/assets/img/img-general/members.png" alt="" width="96">
+                                <i class="material-icons-round text-dark fs-2">payments</i>
                             </div>
                         </div>
                     </div>
@@ -28,15 +28,15 @@
                                                 <i class="fa fa-warning fa-fw"></i> Este campo es requerido.
                                             </div>
                                         </div>
-                                        <div class="mb-3 ">
+                                        <div class="mb-2">
                                             <label  class="form-label"><i class="fas fa-dollar-sign fa-fw"></i> Valor</label>
                                             <input type="number" class="form-field" v-model="item.value">
                                             <div v-if="v$.item.value.$error" class="text-danger" style="font-size:14px" >
                                                 <i class="fa fa-warning fa-fw"></i> Este campo es requerido.
                                             </div>
                                         </div>
-                                        <div class="mb-3  mt-2">
-                                            <button class="btn btn-primary mt-4" @click="addTithes();">Agregar <i class="fa fa-plus fa-fw"></i></button>
+                                        <div class="mb-3">
+                                            <button class="btn btn-primary mt-2" @click="addTithes();">Agregar <i class="fa fa-plus fa-fw"></i></button>
                                         </div>
                                     </div>
                                     <div class="col-lg-8">
@@ -49,18 +49,26 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr v-for="item in items" :key="item.id" >
+                                                <tr v-for="(item,index) in items" :key="item.id" >
                                                     <td>{{item.member.text}}</td>
                                                     <td>{{ $filters.cop_currency_no_decimals(item.value) }}</td> 
                                                     <td>
-                                                        <button class="btn btn-outline-danger btn-sm"  @click="deleteTithes()">
+                                                        <button class="btn btn-outline-danger btn-sm"  @click="deleteTithes(index,item)">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </button>
                                                     </td>
                                                 </tr>  
                                             </tbody>
                                         </table>
-                                        <button class="btn btn-primary" @click="save();">Guardar</button>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-6 text-primary">
+                                                <button class="btn btn-primary" @click="save();">Guardar <i class="fa fa-save fa-fw"></i></button>
+                                            </div>
+                                            <div class="col-6 d-flex justify-content-end">
+                                                <h3>Total : {{$filters.cop_currency_no_decimals(total) }}</h3>
+                                            </div>
+                                        </div> 
                                     </div>
                                 </div>
                             </div>
@@ -90,6 +98,7 @@
                     value: ""
                 },
                 items:[],
+                total:0,
             }
         },
         validations () {
@@ -103,16 +112,22 @@
         methods: {
             async addTithes() {
                 if (!await this.v$.item.$validate()) return;
+                if(this.item.value<=0){
+                    Swal.fire("Oops!", "El valor ingresado es incorrecto", "error");
+                    return;
+                }
+                this.total+=this.item.value;
                 this.items.push({...this.item});
             },
-            deleteTithes(index) {
+            deleteTithes(index,item) {
+                this.total-=item.value;
                 this.items.splice(index, 1);
             },
             async save() {
                 try {
 
                     if (isEmpty(this.items)) {
-                        Swal.fire("Ups!","Debe agregar por lo menos un miembro", "warning");
+                        Swal.fire("Oops!","Debe agregar por lo menos un miembro con su respectivo diezmo", "warning");
                         return;
                     }
 
@@ -129,10 +144,15 @@
 
                     await Swal.fire('Datos Guardados con exito','', 'success');
 
+                    this.$router.push({
+                        name : 'tithes'
+                    })
+                   
+
                 } catch (error) {
                     console.log(error);
                     this.LoaderSpinnerHide()
-                    Swal.fire("Ups!", "ha ocurrido un error al procesar la solicitud", "error");
+                    Swal.fire("Oops!", "ha ocurrido un error al procesar la solicitud", "error");
                 }
             },
             async clear() {
